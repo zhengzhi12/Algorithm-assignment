@@ -1,2 +1,2 @@
 # Algorithm-assignment
-This project is to store the Algorithm assignment from coursera
+This project is to store the Algorithm assignments from Coursera
