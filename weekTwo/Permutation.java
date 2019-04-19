@@ -15,10 +15,10 @@ public class Permutation {
             }
             /**
              * This is Reservoir Sampling, to make every element survive at a k/n probability without knowing n,
-             * just make each "i"th element survive at an i/k probability, and each survived element has a 1/k probability
+             * just make each "i"th element enter at an i/k probability, and each element in the array has a 1/k probability
              * to be replaced.
-             * This can be achieved by simply replace array[random] with the element ready to enter if random is smaller than k.
-             * Think about why when k = 10 and i starts from 11 to n
+             * This can be achieved by simply replace array[random] with the element ready to enter if "random" is smaller than k.
+             * To understand this, consider when k = 10 and i starts from 11 to n
              */
             else {
                 int random = StdRandom.uniform(count + 1);
