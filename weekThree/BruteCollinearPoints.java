@@ -28,6 +28,7 @@ public class BruteCollinearPoints {
                 catch (NullPointerException e) {
                     throw new IllegalArgumentException();
                 }
+
             }
         }
         return lineSegments;
