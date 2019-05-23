@@ -52,16 +52,17 @@ public class Point implements Comparable<Point> {
     }
 
     public int compareTo(Point that) {
-        if (that.y > this.y) return 1;
-        if (that.y < this.y) return -1;
-        else return that.x - this.x == 0 ? 0 : (that.x - this.x) / Math.abs(that.x - this.x);
+        if (this.y > that.y) return  1;
+        if (this.y < that.y) return -1;
+        else return that.x - this.x == 0 ? 0 : (this.x - that.x) / Math.abs(that.x - this.x);
     }
 
     public double slopeTo(Point that) {
         if (compareTo(that) == 0) return Double.NEGATIVE_INFINITY;
         if (that.x == this.x) return Double.POSITIVE_INFINITY;
         if (that.y == this.y) return 0;
-        else return (that.y - this.y) / (that.x - this.x);
+        // need to cast to double, mark this
+        else return (that.y - this.y) / (double) (that.x - this.x);
     }
 
     public Comparator<Point> slopeOrder() {

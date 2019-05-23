@@ -3,39 +3,39 @@ package com.zz.algorithm.weekThree;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.Stopwatch;
 
+import java.util.ArrayList;
 
-public class BruteCollinearPoints {
+public class FastCollinearPoints {
     private final Point[] points;
     private LineSegment[] lineSegments;
-    private int lineIndex;
+    private ArrayList<LineSegment> lineList = new ArrayList<>();
 
-    public BruteCollinearPoints(Point[] points) {
+    public FastCollinearPoints(Point[] points) {
         validate(points);
         this.points = points.clone();
-        lineSegments = new LineSegment[4];
         for (int i = 0; i < points.length; i++) {
-            for (int j = i + 1; j < points.length; j++) {
-                for (int l = j + 1; l < points.length; l++) {
-                    for (int m = l + 1; m < points.length; m++) {
-                        if (points[i].slopeTo(points[j]) == points[i].slopeTo(points[l]) && points[i].slopeTo(points[j]) == points[i].slopeTo(points[m])) {
-                            int[] sameSlopeIndex = {i, j, l, m};
-                            addLineSegment(sameSlopeIndex);
-                        }
-                    }
-                }
+            int[] index;
+            index = new int[points.length - 1];
+            int indexPointer = 0;
+            for (int j = 0; j < points.length; j++) {
+                if (j == i) continue;
+                index[indexPointer++] = j;
             }
+            quick3waySort(index, 0, index.length - 1, i);
         }
-        LineSegment[] finalSeg = new LineSegment[lineIndex];
-        System.arraycopy(lineSegments, 0, finalSeg, 0, lineIndex);
-        lineSegments = finalSeg;
     }
 
     public           int numberOfSegments() {
-        return lineSegments.length;
+        return lineList.size();
     }
 
     public LineSegment[] segments() {
+        if (lineSegments == null) {
+            lineSegments = new LineSegment[lineList.size()];
+            lineList.toArray(lineSegments);
+        }
         return lineSegments.clone();
     }
 
@@ -55,6 +55,35 @@ public class BruteCollinearPoints {
     }
 
 
+    private void quick3waySort(int[] index, int lo, int hi, int basePoint) {
+        if (hi <= lo) return;
+        int lt = lo, gt = hi;
+        int value = index[lo];
+        Point p = points[basePoint];
+        int i = lo + 1;
+        while (i <= gt) {
+            double valueSlope = p.slopeTo(points[value]);
+            double thisSlope = p.slopeTo(points[index[i]]);
+            if (valueSlope > thisSlope) exch(index, i++, lt++);
+            else if (valueSlope < thisSlope) exch(index, i, gt--);
+            else i++;
+        }
+        if (gt - lt >= 2) {
+            int[] sameSlopeIndex = new int[gt - lt + 2];
+            sameSlopeIndex[0] = basePoint;
+            System.arraycopy(index, lt, sameSlopeIndex, 1, sameSlopeIndex.length - 1);
+            addLineSegment(sameSlopeIndex);
+        }
+        quick3waySort(index, lo, lt - 1, basePoint);
+        quick3waySort(index, gt + 1, hi, basePoint);
+    }
+
+    private void exch(int[] index, int i, int j) {
+        int swap =  index[j];
+        index[j] = index[i];
+        index[i] = swap;
+    }
+
     private void addLineSegment(int[] sameSlopeIndex) {
         int min = 0;
         int max = 0;
@@ -62,15 +91,11 @@ public class BruteCollinearPoints {
             if (points[sameSlopeIndex[i]].compareTo(points[sameSlopeIndex[min]]) < 0) min = i;
             if (points[sameSlopeIndex[i]].compareTo(points[sameSlopeIndex[max]]) > 0) max = i;
         }
-        if (lineIndex == lineSegments.length) {
-            LineSegment[] newLineSeg = new LineSegment[lineSegments.length * 2];
-            System.arraycopy(lineSegments, 0, newLineSeg, 0, lineSegments.length);
-            lineSegments = newLineSeg;
-        }
-        lineSegments[lineIndex++] = new LineSegment(points[sameSlopeIndex[min]], points[sameSlopeIndex[max]]);
+        if (min == 0) lineList.add(new LineSegment(points[sameSlopeIndex[min]], points[sameSlopeIndex[max]]));
     }
 
     public static void main(String[] args) {
+        Stopwatch stopwatch = new Stopwatch();
         In in = new In(args[0]);
         int n = in.readInt();
         Point[] points = new Point[n];
@@ -90,11 +115,12 @@ public class BruteCollinearPoints {
         StdDraw.show();
 
         // print and draw the line segments
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+        FastCollinearPoints collinear = new FastCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();
         }
         StdDraw.show();
+        System.out.println("Time cost: " + stopwatch.elapsedTime());
     }
 }
