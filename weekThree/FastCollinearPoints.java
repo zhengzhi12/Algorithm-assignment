@@ -72,6 +72,7 @@ public class FastCollinearPoints {
             int[] sameSlopeIndex = new int[gt - lt + 2];
             sameSlopeIndex[0] = basePoint;
             System.arraycopy(index, lt, sameSlopeIndex, 1, sameSlopeIndex.length - 1);
+            // this is the point why I write the quick3way sort myself
             addLineSegment(sameSlopeIndex);
         }
         quick3waySort(index, lo, lt - 1, basePoint);
