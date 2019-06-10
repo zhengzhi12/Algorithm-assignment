@@ -36,6 +36,12 @@ public class Solver {
         }
     }
 
+    /**
+     * Use one minPQ to solve the whole problem. Put the initial board and its twin into the PQ and delete whichever has
+     * the lowest priority(priority = currentMoves + manhattan), after the goal board is reached, backtrack to the root
+     * and identify if it's the twin.
+     * @param initial input board
+     */
     public Solver(Board initial) {
         if (initial == null) throw new IllegalArgumentException();
         MinPQ<Node> pq = new MinPQ<>();
