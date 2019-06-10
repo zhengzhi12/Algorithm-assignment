@@ -1,4 +1,4 @@
-package com.zz.algorithm.weekOne;
+package com.zz.algorithm.week1;
 
 
 //use one WQUUF to avoid backwash

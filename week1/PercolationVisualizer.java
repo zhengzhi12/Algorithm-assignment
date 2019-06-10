@@ -15,7 +15,7 @@
  *  with with site (1, 1) in the upper left-hand corner.
  *
  ******************************************************************************/
-package com.zz.algorithm.weekOne;
+package com.zz.algorithm.week1;
 
 
 import edu.princeton.cs.algs4.In;

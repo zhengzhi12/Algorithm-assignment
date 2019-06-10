@@ -1,4 +1,4 @@
-package com.zz.algorithm.weekThree;
+package com.zz.algorithm.week3;
 
 public class LineSegment {
     private final Point p;   // one endpoint of this line segment

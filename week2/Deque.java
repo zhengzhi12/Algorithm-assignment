@@ -1,4 +1,4 @@
-package com.zz.algorithm.weekTwo;
+package com.zz.algorithm.week2;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

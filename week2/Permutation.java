@@ -1,4 +1,4 @@
-package com.zz.algorithm.weekTwo;
+package com.zz.algorithm.week2;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdRandom;

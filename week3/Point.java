@@ -1,4 +1,4 @@
-package com.zz.algorithm.weekThree;
+package com.zz.algorithm.week3;
 
 import edu.princeton.cs.algs4.StdDraw;
 
