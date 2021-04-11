@@ -15,7 +15,6 @@
  *  with with site (1, 1) in the upper left-hand corner.
  *
  ******************************************************************************/
-package com.zz.algorithm.week1;
 
 
 import edu.princeton.cs.algs4.In;
@@ -23,11 +22,12 @@ import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.Stopwatch;
 
 import java.awt.Font;
+import java.io.File;
 
 public class PercolationVisualizer {
 
     // delay in miliseconds (controls animation speed)
-    private static final int DELAY = 100;
+    private static final int DELAY = 1;
 
     // draw n-by-n percolation system
     public static void draw(Percolation perc, int n) {
@@ -66,7 +66,7 @@ public class PercolationVisualizer {
 
     public static void main(String[] args) {
         Stopwatch stopwatch = new Stopwatch();
-        In in = new In(args[0]);      // input file
+        In in = new In(new File("D:\\my_repositories\\Algorithm-assignment\\week1\\test\\input3.txt"));      // input file
         int n = in.readInt();         // n-by-n percolation system
 
         // turn on animation mode
